@@ -2,18 +2,22 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+
+//Struct unui nod din lista
 typedef struct Node
 {
 int data;
 struct Node *next;
 } NODE;
+
+//Structura unui graf, vect de vizitat
 typedef struct Graph
 { 
     int vertices;
     int *visited;
     struct Node **adjacency_lists;
 } GPH;
-/// utils
+// Creaza un Nod Nou
 NODE *create_node(int v){
     NODE *new_node = malloc(sizeof(NODE));
     new_node->data = v;
@@ -22,6 +26,7 @@ NODE *create_node(int v){
     return new_node;
 }
 
+//Creaza Un graf cu un nr dat de noduri
 GPH *create_graph(int vertices)
 {
 
@@ -39,6 +44,7 @@ GPH *create_graph(int vertices)
     return graph;
 }
 
+//Adauga o muche intre doua pct date
 void add_edge(GPH *graph, int src, int dest)
 {
     NODE *new_node = create_node(dest);
@@ -52,6 +58,7 @@ void add_edge(GPH *graph, int src, int dest)
     graph->adjacency_lists[dest] = new_node;
 }
 
+//Insereaza muchiile de la tastatura
 int *insert_edge(int nr_of_vertices, int nr_of_edges, GPH *graph)
 { 
     int src, dest, i; 
@@ -62,17 +69,20 @@ int *insert_edge(int nr_of_vertices, int nr_of_edges, GPH *graph)
         add_edge(graph, src, dest);
     }
 }
-/// bfs utils
+// Verifica daca coada este goala
 int is_empty(NODE *queue)
 {
     return queue == NULL;
 }
 
+//Adauga un nod la finalul cozii
 void enqueue(NODE ***queue, int data)
 {
     NODE *new_node = create_node(data);
 
-    if (is_empty(*queue)) *queue = new_node;
+    if (is_empty(*queue)){
+         *queue = new_node;
+    }
     else
     {
     NODE *temp = *queue;
@@ -83,6 +93,7 @@ void enqueue(NODE ***queue, int data)
     }
 }
 
+//Scoate un nod de la inceputul listei
 int dequeue(NODE **queue)
 { 
     int data = (*queue)->data;
@@ -94,6 +105,7 @@ int dequeue(NODE **queue)
     return data;
 }
 
+//Afis lista de adiacenta a grafului
 //Functie refacuta deoarece (i<<2) += 1 nu mergea 
 void print_graph(GPH *graph) {
     int i;
@@ -107,6 +119,7 @@ void print_graph(GPH *graph) {
     }
 }
 
+//Afiseaza continutul cozii
 void print_queue(NODE *queue)
 {
     while (queue != NULL)
@@ -124,7 +137,7 @@ void wipe_visited_list(GPH *graph, int nr_of_vertices)
     }
 }
 
-// parcurgeri
+// Fct de parcurgere DFS(adncime)
 
 void DFS(GPH *graph, int vertex_nr)
 {
@@ -146,6 +159,7 @@ void DFS(GPH *graph, int vertex_nr)
     }
 }
 
+//Fct de parcurgere in latime BFS
 void BFS(GPH *graph, int start)
 {
     NODE *queue = NULL;
@@ -192,7 +206,7 @@ int main()
     insert_edge(nr_of_vertices, nr_of_edges, graph);
 
     printf("de unde plecam in DFS?");
-    scanf("%d", &(starting_vertex)); 
+    scanf("%d", &starting_vertex); 
 
     printf("parcurgere cu DFS:");
     DFS(graph, starting_vertex);

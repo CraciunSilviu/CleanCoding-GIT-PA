@@ -28,6 +28,7 @@ typedef struct s
 } 
 STK;
 
+//Fct de creare a unui nod
 NODE *create_node(int v)
 {
     NODE *nn = malloc(sizeof(NODE));
@@ -36,6 +37,7 @@ NODE *create_node(int v)
     return nn;
 }
 
+//Fct de adaugare a unei muchii
 void add_edge(GPH *g,int src,int dest)
 {
     NODE *nn = create_node(dest);
@@ -79,6 +81,7 @@ void push(int pshd,STK *s)
     s->arr[s->t] = pshd;
 }
 
+//Nu este necesara in cautarea directa
 void DFS(GPH *g,STK *s,int v_nr)
 {
     NODE *adj_list = g->alst[v_nr];
