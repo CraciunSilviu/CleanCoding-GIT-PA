@@ -133,10 +133,10 @@ int main()
     int edg_nr;
     int src, dest;
 
-    printf("cate noduri are graful?");
+    printf("Cate noduri are graful?");
     scanf("%d", &nrv);
 
-    printf("cate muchii are giraful?");
+    printf("Cate muchii are graful?");
     scanf("%d", &edg_nr);
 
     GPH *g = create_g(&nrv);
@@ -144,7 +144,19 @@ int main()
     STK *s1 = create_s(2 * nrv);
     STK *s2 = create_s(2 * nrv);
 
-    insert_edges(*g, *edg_nr, *nrv);
+    insert_edges(g, edg_nr, nrv);
+    
+    printf("Verificam daca exista muchie directa intre doua restaurante (de la 0 la %d):\n", nrv - 1);
+    scanf("%d %d", &src, &dest);
 
-    canbe(*(uint8_t)&g, &nrv, *s1, *(long long unsigned*)&sizeof(s2));
+    if(check_direct_connection(g, src, dest)){
+        printf("Exista muche directa intre %d si %d.\n", src, dest);
+    }
+    else {
+        printf("Nu exista muche directa intre %d si %d. \n", src, dest);
+    }
+
+    getchar();
+
+    return 0;
 }
